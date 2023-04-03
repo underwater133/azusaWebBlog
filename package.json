@@ -1,0 +1,14 @@
+{
+  "name": "azusaWebBlog",
+  "version": "1.0.0",
+  "author": "reco_luan",
+  "scripts": {
+    "blogs:dev": "vuepress dev blogs --open --host \"localhost\" --temp .temp",
+    "blogs:build": "vuepress build blogs"
+  },
+  "devDependencies": {
+    "vuepress": "1.9.7",
+    "vuepress-theme-reco": "1.6.17"
+  },
+  "description": "Welcome to my blog"
+}

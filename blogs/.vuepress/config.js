@@ -1,4 +1,5 @@
 module.exports = {
+  "base": "/azusaWebBlog/", // 因为是要发布在https://<USERNAME>.github.io/<REPO>/，所以需要设置base
   "title": "Azusa的博客",
   "description": "Welcome to my blog",
   "dest": "public",

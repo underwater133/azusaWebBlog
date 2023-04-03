@@ -16,6 +16,7 @@ azusaWebBlog
   + other
     ...
 - gitignore
+- deploy.sh
 - package.json
 - README.md
 ```

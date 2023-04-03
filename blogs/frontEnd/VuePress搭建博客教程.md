@@ -1,5 +1,5 @@
 ---
-title: VuePress搭建博客教程
+title: VuePress搭建博客教程（含部署到github）
 date: 2023-04-03
 tags:
  - 前端 VuePress
@@ -134,5 +134,53 @@ module.exports = {
 启动之后后生成目录.temp，如果不想引入到git上，在gitignore上把它忽略就好了。
 
 ## 部署
-### 创建仓库
-在github上创建一个名称为azusaWebBlog的仓库
+我们先把自己的代码提到github上。
+
+在github上创建一个名称为azusaWebBlog的仓库，然后在本地初始化git，链接到远程仓库上，然后就可以提交项目了。
+```
+git init
+git add .
+git commit -m "初始化网站"
+git branch -M main
+git remote add origin https://github.com/underwater133/azusaWebBlog.git // 对应你自己的仓库地址
+git push -u origin main
+```
+经过这一套连招，我们的项目就上传到github上了，接下来开始正式部署。
+
+因为我打算发布到 https://\<USERNAME\>.github.io/\<REPO\>/，所以我需要修改.vuepress/config.js中的base：
+```js
+module.exports = {
+  "base": "/azusaWebBlog/", // 仓库名称
+  ...
+}
+```
+
+然后在项目的根目录创建deploy.sh脚本：
+```sh
+# 确保脚本抛出遇到的错误
+set -e
+
+# 生成静态文件
+npm run blogs:build
+
+# 进入生成的文件夹
+cd blogs/.vuepress/dist
+
+# 如果是发布到自定义域名
+# echo 'www.example.com' > CNAME
+
+git init
+git add -A
+git commit -m 'deploy'
+
+# 如果发布到 https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+
+# 如果发布到 https://<USERNAME>.github.io/<REPO>
+git push -f git@github.com:underwater133/azusaWebBlog.git master:gh-pages
+
+cd -
+```
+然后在gitbash上运行这个脚本就OK啦。
+
+去到github可以看到打包后的项目放在了gh-pages的分支了，也可以访问自己的博客网站了！

@@ -2,14 +2,15 @@
 title: VuePress搭建博客教程（含部署到github）
 date: 2023-04-03
 tags:
- - 前端 VuePress
+ - 前端
+ - VuePress
 categories: 
  - 前端随笔
 sidebar: 'auto'
 ---
 
 ## 前言
-本人也是第一次用这个框架，边学边搭建，过程中遇到许多问题，以此做个记录，希望能帮助到你。
+本人也是第一次用这个框架，边学边搭建，过程中遇到许多问题，以此做个记录，也希望能帮助到你。
 
 普通的搭建过程就不再描述了，我自己跟着[这篇博客](https://blog.csdn.net/xiaoxianer321/article/details/119548202)敲了一遍，没啥大问题。
 
@@ -181,6 +182,15 @@ git push -f git@github.com:underwater133/azusaWebBlog.git master:gh-pages
 
 cd -
 ```
-然后在gitbash上运行这个脚本就OK啦。
+然后在git bash上运行这个脚本就OK啦。
 
 去到github可以看到打包后的项目放在了gh-pages的分支了，也可以访问自己的博客网站了！
+
+## 其他
+在学这个框架的过程中，一开始很多不知道怎么配置，官方文档也比较简陋，某些配置都搜不到用法（可能是我的搜索方式有问题？）。然后我就去找大佬的vuepress项目是怎么写的，花了一点时间才把项目看懂。
+
+就是这个[vdoing](https://github.com/xugaoyi/vuepress-theme-vdoing)，项目比较大，光是启动就要很久。并且我们是用别人写好的主题，这个项目是自己开发的，给我看的一愣一愣。知道了这一点之后项目的结构也比较清晰了。
+
+这个项目有很多值得学习的地方，现在我也只是简单使用这个框架，主要还是拿来当博客用的，能记录东西就好，有时间再继续学习。
+
+最后，EL PSY CONGROO！

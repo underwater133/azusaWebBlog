@@ -1,11 +1,44 @@
-export default ({ router }) => {
+import { getPV } from "../util/api";
+import Vue from 'vue'
+export default ({ router, isServer }) => {
   // 路由切换事件处理
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
+    Vue.prototype.isServer = isServer
     //触发百度的pv统计
     if (typeof _hmt != "undefined") {
-      if (to.path) {
-        _hmt.push(["_trackPageview", to.fullPath]);
-        console.log("_trackPageview", to.fullPath)
+      if (to.path && (to.path == '/' || to.path != from.path)) {
+        _hmt.push(["_trackPageview", to.path]);
+        await getPV().then(res => {
+          let pv = {}
+          if (res.error_code) {
+            // Access token 过期了
+          } else {
+            const items = res.data.result.items || []
+            const page = items[0] || [], vis = items[1] || []
+            const n = page.length
+            if(to.path == '/') {
+              let total = 0
+              page.forEach((value, index) => {
+                if(value[0].name.indexOf(window.location.origin) > -1) {
+                  total += vis[index][0]
+                }
+              })
+              pv['home'] = total
+              for(let i = 0; i < n; i++) {
+                pv[page[i][0].name] = vis[i][0]
+              }
+            } else {
+              const pathUrl = window.location.origin + to.path
+              for(let i = 0; i < n; i++) {
+                if(page[i][0].name == pathUrl) {
+                  pv[pathUrl] = vis[i][0]
+                  break
+                }
+              }
+            }
+          }
+          Vue.prototype.pv = pv
+        })
       }
     }
     next();

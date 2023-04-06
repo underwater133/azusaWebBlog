@@ -4,9 +4,10 @@ export default ({ router, isServer }) => {
   // 路由切换事件处理
   router.beforeEach(async (to, from, next) => {
     Vue.prototype.isServer = isServer
+    const flag = to.path == '/' || to.path == '/tag/' || to.path.indexOf('/categories/') >= 0
     //触发百度的pv统计
     if (typeof _hmt != "undefined") {
-      if (to.path && (to.path == '/' || to.path != from.path)) {
+      if (to.path && (flag || to.path != from.path)) {
         _hmt.push(["_trackPageview", to.path]);
         await getPV().then(res => {
           let pv = {}
@@ -16,7 +17,7 @@ export default ({ router, isServer }) => {
             const items = res.data.result.items || []
             const page = items[0] || [], vis = items[1] || []
             const n = page.length
-            if(to.path == '/') {
+            if(flag) {
               let total = 0
               page.forEach((value, index) => {
                 if(value[0].name.indexOf(window.location.origin) > -1) {

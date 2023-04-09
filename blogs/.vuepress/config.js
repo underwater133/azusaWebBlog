@@ -106,7 +106,7 @@ module.exports = {
     "author": "Azusa",
     "authorAvatar": "/Ayaka.jpg",
     "record": "xxxx",
-    "startYear": "2017",
+    "startYear": "2023",
     "valineConfig": {
       "appId": 'j3CX5j5vlcVzGdVS9U2zf4Cl-gzGzoHsz',// your appId
       "appKey": 'Eokc1nYgk7E8DdaePLHmpO41', // your appKey

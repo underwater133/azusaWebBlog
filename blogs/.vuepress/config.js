@@ -167,6 +167,7 @@ module.exports = {
         "tv_黑人问号":"45821a01f51bc867da9edbaa2e070410819a95b2.png",
         "tv_鼓掌":"1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
       },
+      "visitor": true,
     }
   },
   "markdown": {

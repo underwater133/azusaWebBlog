@@ -11,7 +11,7 @@ tagline: EL PSY CONGROO
 #   background: '#fff',
 #   borderRadius: '1rem',
 # }
-bgImage: /labmem.jpg
+bgImage: /island.jpg
 bgImageStyle: {
   height: '600px',
 }

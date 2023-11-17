@@ -7,7 +7,9 @@ tags:
  - Hooks
 categories: 
  - React
+sidebar: 'auto'
 ---
+
 # 前言
 最近在学习 React 中常用 Hooks 的一些用法。学习下来感觉和隔壁 Vue3 的 Composition API 风格类似，只在需要的时候使用，可以更加灵活的组织代码和减少打包体积。
 在阅读 Vue3 官网相关信息后，发现 Vue3 也确实是借鉴了 React Hooks，并且设计出了使用更加方便的组合式API，比如 setup 中的代码只执行一遍，不像 React 一样每次依赖更新都会重新跑一遍代码，还有 Vue3 会自动收集依赖等，更多差别可以在[Vue官网](https://cn.vuejs.org/guide/extras/composition-api-faq.html#comparison-with-react-hooks)详细了解。
@@ -81,9 +83,9 @@ function Counter() {
 这就有点棘手了，好在官方也给出了解决方法，那就是 **传递更新函数**，就像这样：
 ```js
 function handleClick() {
-    setCounter(counter => counter + 1)
-    setCounter(counter => counter + 1)
-    setCounter(counter => counter + 1)
+    setCounter(counter => counter + 1) // 这里需要注意的是，传入参数的名称不是固定的
+    setCounter(counter => counter + 1) // 只要有一个形参来接收，但名字无所谓
+    setCounter(counter => counter + 1) 
 }
 ```
 看起来也很好理解，就是教它怎么更新，虽然函数体的内容和之前修改 下一个状态 的内容相同，但由于传入的是一个函数，React 会特殊对待这个函数。

@@ -122,6 +122,6 @@ public class HeaderFilter extends HttpServlet implements Filter {
 }
 ```
 
-当然，虽然这些策略加强了安全性，但有些也是可以绕过的。比如我们在浏览器地址栏直接进入网站的时候，referer 是为空的，但是其实是可以请求到资源的，那么我们就可以利用这一点，比如在请求图片时使用```<img src="https://example.com/image.jpg" referrer="no-referrer">```这将使你的网站在请求图片时不发送Referrer信息，从而避免防盗链措施的触发。当然想让你的图片防止被盗用，也可以使用```<img src="yourimage.jpg" referrerPolicy="same-origin">```来实现，这样就只有同源的网站能引用了。
+当然，虽然这些策略加强了安全性，但有些也是可以绕过的。比如我们在浏览器地址栏直接进入网站的时候，referer 是为空的，但是其实是可以请求到资源的，那么我们就可以利用这一点，比如在请求图片时使用```<img src="https://example.com/image.jpg" referrerpolicy="no-referrer">```这将使你的网站在请求图片时不发送 Referrer 信息，从而避免防盗链措施的触发。
 
 好了，本次的 bug 修复和 referer 学习分享就到这里啦。

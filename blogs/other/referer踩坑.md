@@ -18,7 +18,7 @@ sidebar: 'auto'
 好了，言归正传，既然浏览器之间有差异，而且还和IE浏览器有关，那大概率就是它的问题！但是现在还不知道是什么原因导致的，只能从代码入手，看看是哪里出了问题。
 
 ## 解决问题
-由于我想登陆4A系统有诸多障碍，不能实现单点登陆，只能在本地模拟单点登录跳转。经过一段时间的追踪，终于让我在以下代码中发现了端倪：
+经过一段时间的追踪，终于让我在以下代码中发现了端倪：
 ```java
 public class RefererFilter extends HttpServlet implements Filter {
     private FilterConfig filterConfig;

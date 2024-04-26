@@ -23,7 +23,7 @@ Hbuilder创建项目很简单，直接左上角创建项目选择默认模板和
 最后只能从网上看看别人是怎么实现的，但网上却很少有类似的案例，大部分都是背景颜色跟着改变的，最后终于在b站（没错就是学习网站）上找到一个案例，链接如下：
 [仿沃尔玛首页实现轮播图和背景图双重切换（背景音乐版）](https://www.bilibili.com/video/BV1yh41157nY)
 
-看完视频我受益良多，也跟着复刻了一次（代码贴在后面），但实现方式比较复杂和麻烦，需要将一张图切成3张，分别是上、下和轮播图的部分，然后把各部分图片拼上去，切图也比较讲究，大小一定要切好，否则效果也不理想。
+看完视频我受益良多，也跟着复刻了一次，但实现方式比较复杂和麻烦，需要将一张图切成3张，分别是上、下和轮播图的部分，然后把各部分图片拼上去，切图也比较讲究，大小一定要切好，否则效果也不理想。
 
 但是该up主也指明了另一个方向，只需要加载一张图片，那就是你所有展示图片的部分，给图片加上一个盒子，然后通过absolute定位来调整图片的展示区域。
 
@@ -101,26 +101,41 @@ Hbuilder创建项目很简单，直接左上角创建项目选择默认模板和
 
     没错，算出来居然还是个负数，也就是图片在水平方向上向左移。
 
-上面提到的用一张图切成3张的实现方式（微信小程序实现）：
+上面提到的up主的两种实现方式（微信小程序实现）：
+1. 把一张图切成三部分（不推荐）：
+  ```html
+  <view style="width: 100%; height: 120px; background: red; position: relative;">
+      <!-- 背景图片 -->
+      <image src="{{bg1}}" style="width: 100%; height: 100%; position: absolute;"/>
+  </view>
+  <!-- 相对定位，作为背景图片取宽高的上级。flex布局，将轮播图居中 -->
+  <view style="width: 100%; height: 180px; background: red; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <!-- 背景图片 -->
+      <image src="{{bg2}}" style="width: 100%; height: 100%; position: absolute;"/>
+      <swiper bindchange="swiperChange" autoplay="{{true}}" circular="{{true}}"
+              style="width: 95%; height: 100%; margin-bottom: 10px;">
+          <swiper-item wx:for="{{swiperList}}">
+              <image src="{{item.center}}" style="width: 100%; height: 100%; border-radius: 10px;"/>
+          </swiper-item>
+      </swiper>
+  </view>
+  ```
+2. 通过绝对定位（推荐）：
 ```html
-
-<view style="width: 100%; height: 120px; background: red; position: relative;">
-    <!-- 背景图片 -->
-    <image src="{{bg1}}" style="width: 100%; height: 100%; position: absolute;"/>
-</view>
-<!-- 相对定位，作为背景图片取宽高的上级。flex布局，将轮播图居中 -->
-<view style="width: 100%; height: 180px; background: red; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <!-- 背景图片 -->
-    <image src="{{bg2}}" style="width: 100%; height: 100%; position: absolute;"/>
-    <swiper bindchange="swiperChange" autoplay="{{true}}" circular="{{true}}"
-            style="width: 95%; height: 100%; margin-bottom: 10px;">
-        <swiper-item wx:for="{{swiperList}}">
-            <image src="{{item.center}}" style="width: 100%; height: 100%; border-radius: 10px;"/>
-        </swiper-item>
-    </swiper>
+<view style="width: 100%; height: 395rpx; position: relative;">
+	<image src="/static/s0.jpeg" style="width: 100%; height:100%; position: absolute; left: 0; top: 0; z-index: 1;"></image>
+	<swiper style="width: 95%; height: 200rpx; border: 1px solid red; position: absolute; top: 150rpx; left: 50%; transform: translateX(-50%); z-index: 2;">
+    <swiper-item>
+			<image src="/static/s0.jpeg" style="width: 750rpx; height: 395rpx; position: absolute; top: -150rpx; left: 50%; transform: translateX(-50%);"></image>
+		</swiper-item>
+	</swiper>
 </view>
 ```
-js部分就不贴了，控制一下轮播和背景图片切换即可。里面的bg1是上半部分背景，bg2是下半部分，而item.center则是中间部分，也就是轮播图。
+js部分就不贴了，控制一下轮播和背景图片切换即可。
+
+第一种方式里面的bg1是上半部分背景，bg2是下半部分，而item.center则是中间部分，也就是轮播图。
+
+第二种方式需要注意轮播图的大小设置需要和背景图一致，通过绝对定位来实现展示局部位置，思路和用背景图片+background-position差不多，但需要注意层级设置，背景图是最底层，上面才是轮播组件。
 
 ## 效果图
 <img src="../assets/image/uniapp实现轮播图和背景图双重切换/example.gif" />

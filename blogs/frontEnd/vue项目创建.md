@@ -31,6 +31,9 @@ npm create vite@latest
 然后可以选择创建各种框架的项目，这里选择vue，然后可以选择使用语言JavaScript或者Typescript，也可以自定义选择其他配置。
 首次选择会提示安装```create-vue@3.10.3```，按y安装后根据需求选择配置后即可完成创建。
 
+### 安装vue2版本
+由于vite不提供vue2项目创建，需要创建默认模板再自行添加依赖，可以参考[这篇文章](https://blog.csdn.net/weixin_39415598/article/details/119106298)。
+
 
 ## 为项目安装css预处理器
 像是用vite创建的项目中就不能预选css预处理器，所以需要手动安装，一般就是选用sass或者less，这里以安装sass为例子。

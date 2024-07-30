@@ -130,3 +130,34 @@ module.exports = defineConfig({
 ```
 如果缺少path模块需要按提示安装。可以看到cli和vite配置方式有点不同，如这个设置别名和全局引入scss，这些差异有时候也是挺搞的，网上许多方法也不适合自己，还是得多试试。
 
+## 自动按需导入element-plus
+如果是vite直接按照官网配置即可，如果是vue-cli按照如下配置：
+```js
+// vue.config.js
+const { defineConfig } = require('@vue/cli-service')
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+const path = require('path');
+module.exports = defineConfig({
+  transpileDependencies: true,
+  chainWebpack: config => {
+    config.resolve.alias.set('@', path.join(__dirname, 'src'))
+  },
+  // 这里就是官方示例webpack中的配置，在vue-cli需要放到configureWebpack属性下
+  configureWebpack: {
+    devServer: {
+      port: 8888,
+      open: true
+    },
+    plugins: [
+      AutoImport({
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      })
+    ]
+  }
+})
+```

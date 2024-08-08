@@ -36,8 +36,8 @@ export async function getAliOssClient() {
   const parseMast = {
     bucket: data.bucketName, // bucket名称
     region: data.endpoint.split('.')[0], // 地域
-    accessKeyId: data.accessKeyId,
-    accessKeySecret: data.accessKeySecret,
+    accessKeyId: data.accessKeyId, // 后端生成的临时accessKeyId，非阿里云账号的accessKeyId
+    accessKeySecret: data.accessKeySecret, // 后端生成的临时accessKeySecret，非阿里云账号的accessKeySecret
     stsToken: data.securityToken,
     expiration: data.expiration, // 有效期
     refreshSTSToken: async() => { // 刷新临时访问凭证的回调，在上传大文件的时候会用到

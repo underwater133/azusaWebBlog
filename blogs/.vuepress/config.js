@@ -104,7 +104,7 @@ module.exports = {
     "searchMaxSuggestions": 10,
     "lastUpdated": "Last Updated",
     "author": "Azusa",
-    "authorAvatar": "/Ayaka.jpg",
+    "authorAvatar": "/Doge.jpg",
     "record": "xxxx",
     "startYear": "2023",
     "valineConfig": {

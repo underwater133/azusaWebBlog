@@ -11,6 +11,24 @@ sidebar: 'auto'
 # 前言
 本篇是我阅读Vue3官方文档时，记录的一些自己比较薄弱的知识点，后续可能会有补充~
 
+## 更新
+**3.5**
++ 1、Props 响应式解构（在此之前解构会丢失响应性）
++ 2、useTemplateRef（区分 **响应式变量** 还是 **组件实例获取**）
++ 3、useId（为组件生成唯一id，方便做区分，场景有渲染一个组件列表，为组件生成id，加在dom的id上做区分）
++ 4、内存优化 + 大数组优化
+
+Vue3.5 中重构了响应式系统。使得**内存占用率减少了 60%**，并且重构了很多数组方法，这让大数组遍历操作的双速度提升了 10 倍。
+
+**3.4**
++ 1、彻底重构 parser（模板解析器），加快一倍
++ 2、SFC（单文件组件） 编译 source map 优化，提速可达 50%
++ 3、响应式系统重构，更精确的 computed 计算触发（如果依赖项修改后和原值一样不会触发副作用）
++ 4、defineModel 成为稳定功能
++ 5、v-bind 语法糖（属性与值同名可以缩写，如:src="src"可以缩写为:src）
+
+source map是一个 json 描述文件，维护了打包前后的代码映射关系，方便调试时看到源代码。可以通过打包配置设置是否生成。
+
 ## 代码复用
 封装组件、插槽、mixin、组合式函数（vue3、纯逻辑）、自定义指令
 
@@ -143,7 +161,7 @@ v-model上的修饰符：.lazy、.number、.trim
 ## 组件v-model
 [https://cn.vuejs.org/guide/components/v-model.html](https://cn.vuejs.org/guide/components/v-model.html)
 v-model 可以在组件上使用以实现双向绑定。
-从 Vue 3.4 开始，推荐的实现方式是使用 defineModel() 宏：
+从 **Vue 3.4** 开始，推荐的实现方式是使用 defineModel() 宏：
 ```vue
 <!-- Child.vue -->
 <script setup>

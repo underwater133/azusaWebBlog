@@ -108,8 +108,8 @@ module.exports = {
     "record": "xxxx",
     "startYear": "2023",
     "valineConfig": {
-      "appId": 'j3CX5j5vlcVzGdVS9U2zf4Cl-gzGzoHsz',// your appId
-      "appKey": 'Eokc1nYgk7E8DdaePLHmpO41', // your appKey
+      "appId": 'ckNQvYHocgNLVFKw1THxNziF-gzGzoHsz',// your appId
+      "appKey": 'l9vgCUfypmykAXf9Ll0h0szK', // your appKey
       "placeholder": '留下gravatar绑定的邮箱可以显示头像噢~',
       "pageSize": 10,
       // 设置Bilibili表情包地址

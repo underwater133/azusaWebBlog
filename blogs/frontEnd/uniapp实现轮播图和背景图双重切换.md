@@ -3,7 +3,7 @@ title: uniapp实现轮播图和背景图双重切换
 date: 2024-04-24
 tags:
  - 前端
- - uniapp
+ - uni-app
 categories: 
  - 前端随笔
 sidebar: 'auto'

@@ -76,4 +76,122 @@ getCurrentPages() 函数用于获取当前页面栈的实例，以数组形式�
 
 用on注册监听后需要注意用off销毁，如果**只是监听一次**，则直接使用once方法，无需再用off销毁。
 
+## 路由
+uni-app有自己的一套路由，需要在page.json中配置页面路径以及页面样式，类似小程序。如果想用vue-router需要在插件市场搜索使用。
+其中pages数组中第一项表示应用启动页。
+```json
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/classify/classify",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分类",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/user/user",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的",
+				"enablePullDownRefresh" : false,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/classlist/classlist",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分类列表",
+				"enablePullDownRefresh" : false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "咸虾米壁纸",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#9799a5",
+		"selectedColor": "#28B389",
+		"list": [
+			{
+				"text": "推荐",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/tabBar/home.png",
+				"selectedIconPath": "static/images/tabBar/home-h.png"
+			},{
+				"text": "分类",
+				"pagePath": "pages/classify/classify",
+				"iconPath": "static/images/tabBar/classify.png",
+				"selectedIconPath": "static/images/tabBar/classify-h.png"
+			},{
+				"text": "我的",
+				"pagePath": "pages/user/user",
+				"iconPath": "static/images/tabBar/user.png",
+				"selectedIconPath": "static/images/tabBar/user-h.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}
+```
+
+### 路由跳转
+uni-app 有两种页面路由跳转方式：使用navigator组件跳转、调用API跳转。
+
+navigator组件与API对应方式如下：
+
+|  navigator   | API |
+|  ----  |-----|
+| `<navigator open-type="navigate"/> ` | `uni.navigateTo` |
+| `<navigator open-type="redirectTo"/> ` | `uni.redirectTo ` |
+| `<navigator open-type="navigateBack"/> ` | `uni.navigateBack` |
+| `<navigator open-type="switchTab"/> ` | `uni.switchTab` |
+| `<navigator open-type="reLaunch"/> ` | `uni.reLaunch` |
+
+注意：
+
+页面返回时会自动关闭 loading 及 toast, modal 及 actionSheet 不会自动关闭。
+
+页面关闭时，只是销毁了页面实例，**未完成的网络请求、计时器等副作用需开发者自行处理**。
+
+### 预加载页面
+预加载页面，是一种性能优化技术。被预载的页面，在打开时速度更快，本质是先向服务器请求下载将要去往的页面所需的文件，但不渲染。
+```js
+uni.preloadPage({url: "/pages/test/test"}); // 预加载 /pages/test/test 页面（仅触发onLoad，onReady)
+uni.navigateTo({url: "/pages/test/test"}); // url匹配，跳转预加载页面（仅触发onShow)
+uni.navigateTo({url: "/pages/test/test?a=b"}); // url不匹配，正常打开新页面
+```
+
+
 ## 条件编译
+条件编译是用特殊的注释作为标记，在编译时根据这些特殊的注释，将注释里面的代码编译到不同平台。
+
+使用方法：
+
+以 #ifdef 或 #ifndef 加 %PLATFORM% 开头，以 #endif 结尾。
+
++ #ifdef：if defined 仅在某平台存在
++ #ifndef：if not defined 除了某平台均存在
++ %PLATFORM%：平台名称
+
+常见的PLATFORM有H5、APP、MP等等，具体可见[官网](https://uniapp.dcloud.net.cn/tutorial/platform.html)。
+
+注意条件编译在不同语法里注释写法不一样，js/uts使用 `//` 注释、css 使用 `/* 注释 */`、vue/nvue/uvue 模板里使用 `<!-- 注释 -->`；
+
+## 环境变量
+与vue2、vue3方式一致，可以在根目录下创建.env.[mode]文件来存储环境变量，然后通过对应的方式去访问，例如vite创建的项目是使用`import.meta.env.VITE_APP_XXX`来访问环境变量。
+
+
